@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Members` (
   `Last_Name` VARCHAR(45) NULL,
   `Age` TINYINT NULL,
   `location_id` INT UNSIGNED NULL,
-  `User_id` INT UNSIGNED NULL,
   `Username` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(255) NULL,
   `Password` VARCHAR(45) NOT NULL,
