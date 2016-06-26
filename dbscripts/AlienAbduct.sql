@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Members` (
   `Password` VARCHAR(45) NOT NULL,
   `Privilege` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE(`Username`),
+  UNIQUE(`Email`),
   INDEX `State_id_idx` (`location_id` ASC),
   INDEX `Privlage_idx` (`Privilege` ASC),
   CONSTRAINT `State_id`
@@ -77,7 +79,8 @@ CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Experience` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Exp_Name` VARCHAR(45) NOT NULL,
   `Description` TEXT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE(`Exp_Name`))
 ENGINE = InnoDB;
 
 
@@ -111,10 +114,4 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
---
---Adding unique constraint to username and email for memeber
---Adding unique constraintto Exp+Name on experience
---
-ALTER TABLE `members` ADD UNIQUE(`Username`);
-ALTER TABLE `members` ADD UNIQUE(`Email`); 
-ALTER TABLE `experience` ADD UNIQUE(`Exp_Name`); 
+
