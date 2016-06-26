@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Location` (
   `State` VARCHAR(45) NULL,
   `Country` VARCHAR(45) NULL,
   `City` VARCHAR(45) NULL,
-  `Zipcode` TINYINT(15) NULL,
+  `Zipcode` VARCHAR(15) NULL,
   `Address` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
