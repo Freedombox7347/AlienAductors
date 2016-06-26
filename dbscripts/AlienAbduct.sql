@@ -110,3 +110,11 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+--
+--Adding unique constraint to username and email for memeber
+--Adding unique constraintto Exp+Name on experience
+--
+ALTER TABLE `members` ADD UNIQUE(`Username`);
+ALTER TABLE `members` ADD UNIQUE(`Email`); 
+ALTER TABLE `experience` ADD UNIQUE(`Exp_Name`); 
