@@ -14,4 +14,11 @@ This direcotry contains the scripts to create the database for the app in MySQL 
 
 Intial queries needed for the application have been mapped to functionailty specifications and can be found in 'Alien Abductors Functional specs with queries.pdf' 
 
-
+*Screenshoots of database table*
+  1. exp_review_table.png
+  2. experience_table.png
+  3. location_table.png
+  4. members_table.png
+  5. privileges_table.png
+  
+ 
