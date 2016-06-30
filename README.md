@@ -51,5 +51,3 @@ Our proposed app will allow the company to take in customer reviews on the vario
 ***
 ####Client Server Architecture 
   * Three tier architecture
-  
-  #####Thank You come again!
