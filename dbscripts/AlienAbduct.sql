@@ -8,20 +8,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema Alien_Abductors
+-- Schema alien_abductors
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema Alien_Abductors
+-- Schema alien_abductors
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Alien_Abductors` DEFAULT CHARACTER SET utf8 ;
-USE `Alien_Abductors` ;
+CREATE SCHEMA IF NOT EXISTS `alien_abductors` DEFAULT CHARACTER SET utf8 ;
+USE `alien_abductors` ;
 
 -- -----------------------------------------------------
--- Table `Alien_Abductors`.`Location`
+-- Table `alien_abductors`.`Location`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Location` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alien_abductors`.`locations` (
+  `id` char(36) NOT NULL,
   `State` VARCHAR(45) NULL,
   `Country` VARCHAR(45) NULL,
   `City` VARCHAR(45) NULL,
@@ -32,10 +32,10 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Alien_Abductors`.`Privileges`
+-- Table `alien_abductors`.`Privileges`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Privileges` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alien_abductors`.`privileges` (
+  `id` char(36) NOT NULL,
   `Admin` TINYINT(1) NOT NULL,
   `User` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`))
@@ -43,40 +43,40 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Alien_Abductors`.`Members`
+-- Table `alien_abductors`.`Members`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Members` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alien_abductors`.`members` (
+  `id` char(36) NOT NULL,
   `First_Name` VARCHAR(45) NULL,
   `Last_Name` VARCHAR(45) NULL,
   `Age` TINYINT NULL,
-  `location_id` INT UNSIGNED NULL,
+  `location_id` char(36) NULL,
   `Username` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(255) NULL,
   `Password` VARCHAR(45) NOT NULL,
-  `Privilege` INT UNSIGNED NOT NULL,
+  `privilege_id` char(36) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE(`Username`),
   UNIQUE(`Email`),
-  INDEX `State_id_idx` (`location_id` ASC),
-  INDEX `Privlage_idx` (`Privilege` ASC),
-  CONSTRAINT `State_id`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `Alien_Abductors`.`Location` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `Privilege`
-    FOREIGN KEY (`Privilege`)
-    REFERENCES `Alien_Abductors`.`Privileges` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
+  INDEX `location_idx` (`location_id` ASC),
+  INDEX `Privlage_idx` (`privilege_id` ASC),
+	CONSTRAINT `location` 
+	FOREIGN KEY (`location_id`) 
+	REFERENCES `alien_abductors`.`locations`(`id`) 
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+  CONSTRAINT `privilege` 
+	FOREIGN KEY (`privilege_id`) 
+	REFERENCES `alien_abductors`.`privileges`(`id`) 
+	ON DELETE CASCADE 
+	ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table `Alien_Abductors`.`Experience`
+-- Table `alien_abductors`.`Experience`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Experience` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alien_abductors`.`experiences` (
+  `id` char(36) NOT NULL,
   `Exp_Name` VARCHAR(45) NOT NULL,
   `Description` TEXT NULL,
   PRIMARY KEY (`id`),
@@ -85,26 +85,26 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Alien_Abductors`.`Exp_Reviews`
+-- Table `alien_abductors`.`Exp_Reviews`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Alien_Abductors`.`Exp_Reviews` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `alien_abductors`.`exp_reviews` (
+  `id`char(36) NOT NULL,
   `Review` TEXT(1000) NULL,
   `Exp_Rating` TINYINT(5) NULL,
-  `Member_id` INT UNSIGNED NOT NULL,
-  `Exp_id` INT UNSIGNED NOT NULL,
+  `member_id` char(36) NOT NULL,
+  `experience_id` char(36) NOT NULL,
   `Recommend` TINYINT(1) NULL,
   PRIMARY KEY (`id`),
-  INDEX `Member_id_idx` (`Member_id` ASC),
-  INDEX `Exp_id_idx` (`Exp_id` ASC),
-  CONSTRAINT `Member_id`
-    FOREIGN KEY (`Member_id`)
-    REFERENCES `Alien_Abductors`.`Members` (`id`)
+  INDEX `Member_id_idx` (`member_id` ASC),
+  INDEX `Exp_id_idx` (`experience_id` ASC),
+  CONSTRAINT `member_id`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `alien_abductors`.`members` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `Exp_id`
-    FOREIGN KEY (`Exp_id`)
-    REFERENCES `Alien_Abductors`.`Experience` (`id`)
+  CONSTRAINT `experience_id`
+    FOREIGN KEY (`experience_id`)
+    REFERENCES `alien_abductors`.`experiences` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

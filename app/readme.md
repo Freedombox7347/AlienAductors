@@ -1,1 +1,0 @@
-#App Directory for appliaction files
