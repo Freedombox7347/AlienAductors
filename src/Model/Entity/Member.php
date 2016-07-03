@@ -7,17 +7,19 @@ use Cake\ORM\Entity;
  * Member Entity
  *
  * @property string $id
+ * @property bool $admin
+ * @property string $Username
+ * @property string $Password
+ * @property string $Email
  * @property string $First_Name
  * @property string $Last_Name
  * @property int $Age
- * @property string $location_id
- * @property string $Username
- * @property string $Email
- * @property string $Password
- * @property string $privilege_id
+ * @property string $city
+ * @property string $state_id
+ * @property string $country_id
  *
- * @property \App\Model\Entity\Location $location
- * @property \App\Model\Entity\Privilege $privilege
+ * @property \App\Model\Entity\State $state
+ * @property \App\Model\Entity\Country $country
  * @property \App\Model\Entity\ExpReview[] $exp_reviews
  */
 class Member extends Entity
@@ -36,4 +38,10 @@ class Member extends Entity
         '*' => true,
         'id' => false
     ];
+
+    protected function _setPassword($value)
+    {
+        $hasher = new DefaultPasswordHasher();
+        return $hasher->hash($value);
+    }
 }

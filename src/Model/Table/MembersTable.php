@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Members Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\BelongsTo $Privileges
+ * @property \Cake\ORM\Association\BelongsTo $States
+ * @property \Cake\ORM\Association\BelongsTo $Countries
  * @property \Cake\ORM\Association\HasMany $ExpReviews
  *
  * @method \App\Model\Entity\Member get($primaryKey, $options = [])
@@ -38,12 +38,11 @@ class MembersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Locations', [
-            'foreignKey' => 'location_id'
+        $this->belongsTo('States', [
+            'foreignKey' => 'state_id'
         ]);
-        $this->belongsTo('Privileges', [
-            'foreignKey' => 'privilege_id',
-            'joinType' => 'INNER'
+        $this->belongsTo('Countries', [
+            'foreignKey' => 'country_id'
         ]);
         $this->hasMany('ExpReviews', [
             'foreignKey' => 'member_id'
@@ -63,6 +62,24 @@ class MembersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->boolean('admin')
+            ->requirePresence('admin', 'create')
+            ->notEmpty('admin');
+
+        $validator
+            ->requirePresence('Username', 'create')
+            ->notEmpty('Username')
+            ->add('Username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->requirePresence('Password', 'create')
+            ->notEmpty('Password');
+
+        $validator
+            ->allowEmpty('Email')
+            ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->allowEmpty('First_Name');
 
         $validator
@@ -73,17 +90,7 @@ class MembersTable extends Table
             ->allowEmpty('Age');
 
         $validator
-            ->requirePresence('Username', 'create')
-            ->notEmpty('Username')
-            ->add('Username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->allowEmpty('Email')
-            ->add('Email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->requirePresence('Password', 'create')
-            ->notEmpty('Password');
+            ->allowEmpty('city');
 
         return $validator;
     }
@@ -99,8 +106,8 @@ class MembersTable extends Table
     {
         $rules->add($rules->isUnique(['Username']));
         $rules->add($rules->isUnique(['Email']));
-        $rules->add($rules->existsIn(['location_id'], 'Locations'));
-        $rules->add($rules->existsIn(['privilege_id'], 'Privileges'));
+        $rules->add($rules->existsIn(['state_id'], 'States'));
+        $rules->add($rules->existsIn(['country_id'], 'Countries'));
         return $rules;
     }
 }

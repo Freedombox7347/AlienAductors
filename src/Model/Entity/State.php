@@ -4,18 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Location Entity
+ * State Entity
  *
  * @property string $id
- * @property string $State
- * @property string $Country
- * @property string $City
- * @property string $Zipcode
- * @property string $Address
+ * @property string $name
+ * @property string $country_id
  *
+ * @property \App\Model\Entity\Country $country
  * @property \App\Model\Entity\Member[] $members
  */
-class Location extends Entity
+class State extends Entity
 {
 
     /**
