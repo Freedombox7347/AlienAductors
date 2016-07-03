@@ -19,7 +19,7 @@ class MembersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Locations', 'Privileges']
+            'contain' => ['States', 'Countries']
         ];
         $members = $this->paginate($this->Members);
 
@@ -37,7 +37,7 @@ class MembersController extends AppController
     public function view($id = null)
     {
         $member = $this->Members->get($id, [
-            'contain' => ['Locations', 'Privileges', 'ExpReviews']
+            'contain' => ['States', 'Countries', 'ExpReviews']
         ]);
 
         $this->set('member', $member);
@@ -61,9 +61,9 @@ class MembersController extends AppController
                 $this->Flash->error(__('The member could not be saved. Please, try again.'));
             }
         }
-        $locations = $this->Members->Locations->find('list', ['limit' => 200]);
-        $privileges = $this->Members->Privileges->find('list', ['limit' => 200]);
-        $this->set(compact('member', 'locations', 'privileges'));
+        $states = $this->Members->States->find('list', ['limit' => 200]);
+        $countries = $this->Members->Countries->find('list', ['limit' => 200]);
+        $this->set(compact('member', 'states', 'countries'));
         $this->set('_serialize', ['member']);
     }
 
@@ -88,9 +88,9 @@ class MembersController extends AppController
                 $this->Flash->error(__('The member could not be saved. Please, try again.'));
             }
         }
-        $locations = $this->Members->Locations->find('list', ['limit' => 200]);
-        $privileges = $this->Members->Privileges->find('list', ['limit' => 200]);
-        $this->set(compact('member', 'locations', 'privileges'));
+        $states = $this->Members->States->find('list', ['limit' => 200]);
+        $countries = $this->Members->Countries->find('list', ['limit' => 200]);
+        $this->set(compact('member', 'states', 'countries'));
         $this->set('_serialize', ['member']);
     }
 

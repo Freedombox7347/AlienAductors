@@ -4,15 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Privilege Entity
+ * Country Entity
  *
  * @property string $id
- * @property bool $Admin
- * @property bool $User
+ * @property string $sortname
+ * @property string $name
  *
  * @property \App\Model\Entity\Member[] $members
+ * @property \App\Model\Entity\State[] $states
  */
-class Privilege extends Entity
+class Country extends Entity
 {
 
     /**
