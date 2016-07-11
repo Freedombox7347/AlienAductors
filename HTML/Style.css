@@ -1,0 +1,21 @@
+/*Header*/
+h1{text-align: center;}
+
+/*Current nab bar is to the left instead of right change float to get it on the right*/
+#Nav{list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333; border-radius: 5px; }
+#NavButton {float: left; border-right: 1px solid #bbb;}
+#NavButton a:hover {background-color: #111}
+#NavButton a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+#NaveButton:last-child{border-right: none;}
+
+/*CSS for ExpList*/
+#Exp{ width: 800px; position: relative; margin: 0 auto; border: 2px solid black; padding: 15px; text-align: center;}
+#ExpH2{ text-align: left; }
+#ExpDiv{display: inline-block; height: auto; width: auto; }
+button {padding: 15px; margin: 20px; display: inline-block;}
+#ExpImg{ width: 20%; height: 20%; margin: auto; display: inline-block; }
+
+/*CSS for Create new Experence*/
+#ExpCreate{ width: 800px; position: relative; margin: 0 auto; padding: 15px; text-align: center;}
+#FormCol{padding: 25px; }
+#ExpDescBox{display: inline-block; margin: 20px; width: 80%;}
