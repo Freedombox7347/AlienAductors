@@ -3,7 +3,6 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2016 at 02:44 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.6
 
@@ -19,26 +18,15 @@ SET time_zone = "+00:00";
 --
 -- Database: `alien_abductors`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `countries`
---
-
-CREATE TABLE `countries` (
-  `id` char(36) NOT NULL,
-  `sortname` varchar(3) NOT NULL,
-  `name` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+CREATE SCHEMA IF NOT EXISTS `alien_abductors` DEFAULT CHARACTER SET utf8 ;
+USE `Alien_Abductors` ;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `experiences`
 --
 
-CREATE TABLE `experiences` (
+CREATE TABLE IF NOT EXISTS `experiences` (
   `id` char(36) NOT NULL,
   `Exp_Name` varchar(45) NOT NULL,
   `Description` text
@@ -50,7 +38,7 @@ CREATE TABLE `experiences` (
 -- Table structure for table `exp_reviews`
 --
 
-CREATE TABLE `exp_reviews` (
+CREATE TABLE IF NOT EXISTS `exp_reviews` (
   `id` char(36) NOT NULL,
   `Review` text,
   `Exp_Rating` tinyint(5) DEFAULT NULL,
@@ -62,44 +50,23 @@ CREATE TABLE `exp_reviews` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `members` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` char(36) NOT NULL,
   `admin` tinyint(1) NOT NULL,
-  `Username` varchar(45) NOT NULL,
-  `Password` varchar(45) NOT NULL,
-  `Email` varchar(255) DEFAULT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `First_Name` varchar(45) DEFAULT NULL,
   `Last_Name` varchar(45) DEFAULT NULL,
   `Age` tinyint(4) DEFAULT NULL,
-  `city` varchar(80) DEFAULT NULL,
-  `state_id` char(36) DEFAULT NULL,
-  `country_id` char(36) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `states`
---
-
-CREATE TABLE `states` (
-  `id` char(36) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `country_id` char(36) DEFAULT NULL
+  `city` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexes for dumped tables
 --
-
---
--- Indexes for table `countries`
---
-ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `experiences`
@@ -117,20 +84,12 @@ ALTER TABLE `exp_reviews`
   ADD KEY `Exp_id_idx` (`experience_id`);
 
 --
--- Indexes for table `members`
+-- Indexes for table `users`
 --
-ALTER TABLE `members`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `Username` (`Username`),
-  ADD UNIQUE KEY `Email` (`Email`),
-  ADD KEY `state_id` (`state_id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `country_id` (`country_id`);
+  ADD UNIQUE KEY `Username` (`username`),
+  ADD UNIQUE KEY `Email` (`email`);
 
 --
 -- Constraints for dumped tables
@@ -141,19 +100,7 @@ ALTER TABLE `states`
 --
 ALTER TABLE `exp_reviews`
   ADD CONSTRAINT `experience_id` FOREIGN KEY (`experience_id`) REFERENCES `experiences` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `member_id` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `members`
---
-ALTER TABLE `members`
-  ADD CONSTRAINT `state` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `states`
---
-ALTER TABLE `states`
-  ADD CONSTRAINT `country` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `member_id` FOREIGN KEY (`member_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
